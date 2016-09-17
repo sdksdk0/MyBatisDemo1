@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType:指定输出结果映射的类型，单条记录所映射的类型,需要指定pojo的全路径
 			#{}表示占位符,#{id}表示接收输入参数id，如果输入参数是简单类型，#{}中间可以使用任意名称
 		-->
-		<select id="findUserById"   parameterType="int"   resultType="cn.tf.mybatis.po.User">
+		<select id="findUserById"   parameterType="int"   resultType="user">
 			select * from user where id=#{id}
 		</select>
 		

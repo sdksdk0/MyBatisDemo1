@@ -61,7 +61,7 @@ public class UserMapperTest {
 		
 	}
 
-	@Test
+	//@Test
 	public void testInsertUser() throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		//使用sqlSession创建代理对象
