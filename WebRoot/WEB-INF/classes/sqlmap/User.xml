@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 在mapper中配置sql语句 -->
+<mapper  namespace="test">
+		<!-- id:用于唯一标识一个sql语句     
+			paramterType:设置输入参数的类型 
+			resultType:指定输出结果映射的类型，单条记录所映射的类型,需要指定pojo的全路径
+			#{}表示占位符,#{id}表示接收输入参数id，如果输入参数是简单类型，#{}中间可以使用任意名称
+		-->
+		<select id="findUserById"   parameterType="int"   resultType="cn.tf.mybatis.po.User">
+			select * from user where id=#{id}
+		</select>
+		
+		<!-- 根据用户名称查询,${}表示一个sql拼接符号，${value}表示接收到参数内容不加任何修饰拼接在sql语句中 -->
+		<select id="findUserByName"  parameterType="java.lang.String"  resultType="cn.tf.mybatis.po.User" >
+			select * from user where username like '%${value}%'
+		</select>
+		
+		<!-- 插入数据 
+			#{}:接收输入参数，使用OGNL解析对象中的属性，表示方法就是对象.属性
+			#{username}表示解析到输入参数的user对象的username属性值
+		-->
+		<insert id="insertUser"    parameterType="cn.tf.mybatis.po.User">
+		<!-- 	<selectKey  order="AFTER"  keyProperty="id"   resultType="int">
+					select last_insert_id() 
+			</selectKey> -->
+				<selectKey  order="BEFORE"  keyProperty="id"   resultType="java.lang.String">
+					select uuid() 
+			</selectKey>
+			
+			insert into user(username,birthday,sex,address)  values(#{username},#{birthday},#{sex},#{address})
+		</insert>
+		
+		<!-- 删除用户 -->
+		<delete id="deleteUser"  parameterType="int">
+			delete from user where id=#{value}
+		</delete>
+		
+		<!-- 更新 -->
+		<update id="updateUser"  parameterType="cn.tf.mybatis.po.User">
+			update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address}  where id=#{id}
+		</update>
+		
+</mapper>
+
+
+
+
