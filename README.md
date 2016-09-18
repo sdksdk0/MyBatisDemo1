@@ -469,6 +469,42 @@ separator:两次拼接的连接
 		</resultMap>
 
 
+###延迟加载
+当进行复杂的关联查询时，如果只查询主要的内容不查询关联信息就能满足用户需要的时候，可以只查出主要内容返回，当需要查询关联信息时，再去查关联信息。优点在于：提高数据库查询性能。
+
+	<!-- 用户信息延迟加载   select:延迟加载的statement的id-->
+				<association property="user"   select="cn.tf.mybatis.mapper.UserMapper.findUserById"   column="user_id">
+						
+				
+				</association>
+
+
+
+延迟加载配置
+
+	<settings>
+		<!-- 延迟加载配置 -->
+		<!-- 打开延迟加载开关 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 设置按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		
+	</settings>
+
+#查询缓存
+
+
+一级缓存：是线程级别的缓存，不同的sqlSession的一级缓存map不能共用，当sqlSession关闭或者commit，该sqlSession的一级缓存数据不清空。
+
+二级缓存：是跨进程级别的缓存，不同的sqlSession的二级缓存的map可以共用，二级缓存是以mapper为单位创建map数据结构，有几个map就有几个mapper。
+
+myBatis默认支持一级缓存。
+打开二级缓存：
+
+    <setting name="cacheEnabled" value="true"/>
+
+
+当二级缓存开启，先去二级缓存中查找，如果二级缓存没有，再去一级缓存查找。
 
 
 
