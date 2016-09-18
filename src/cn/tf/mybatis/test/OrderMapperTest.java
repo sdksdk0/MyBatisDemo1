@@ -102,5 +102,18 @@ public class OrderMapperTest {
 		sqlSessio.close();
 	}
 	
-
+	
+	@Test
+	public void test6() throws Exception {
+		SqlSession sqlSessio=sqlSessionFactory.openSession();
+	
+		OrderMapper  orderMapper=sqlSessio.getMapper(OrderMapper.class);
+		
+		List<Orders> list=orderMapper.findOrderUserLazyLoad();
+		
+		Orders orders=list.get(0);
+		User user=orders.getUser();
+		System.out.println(user);
+		sqlSessio.close();
+	}
 }

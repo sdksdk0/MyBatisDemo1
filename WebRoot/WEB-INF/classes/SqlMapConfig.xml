@@ -8,14 +8,25 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 	</properties>
 	
+	
+	<settings>
+		<!-- 延迟加载配置 -->
+		<!-- 打开延迟加载开关 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 设置按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		
+		<!-- 二级总开关 -->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+	
 	<!-- 别名 -->
 	<typeAliases>
 		<!-- <typeAlias type="cn.tf.mybatis.po.User"    alias="user"/> -->
 		
 		<package name="cn.tf.mybatis.po" />
 	</typeAliases>
-	
-	
+
 	
 	
 	<!-- mybatis运行环境配置 -->

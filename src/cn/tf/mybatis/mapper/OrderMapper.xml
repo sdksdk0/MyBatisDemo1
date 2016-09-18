@@ -33,11 +33,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</where>
 		</select>
 		
+		<resultMap type="orders" id="findOrderUserLazyLoad">
+				<id  column="id"  property="id"/>   <!-- 订单信息的唯一标识 -->
+				<result   column="user_id"   property="userId"/>  
+				<result  column="number"  property="number"/>
+				<result  column="createtime"  property="createtime"/>
+				<result column="note" property="note"/>
+		
+				<!-- 用户信息延迟加载   select:延迟加载的statement的id-->
+				<association property="user"   select="cn.tf.mybatis.mapper.UserMapper.findUserById"   column="user_id">
+						
+				</association>
+		</resultMap>
+		
+		
+		
+		 <!-- 延迟加载 -->
+		<select id="findOrderUserLazyLoad"  resultMap="findOrderUserLazyLoad">
+				select * from  orders 
+		</select>
+
 		
 		<!-- 查询订单关联查询用户 -->
 		<select id="findOrderAndUserList"   resultType="cn.tf.mybatis.po.OrdersCustom">
 			SELECT orders.*,username,sex,address  FROM orders,USER  WHERE orders.`user_id`=user.`id`
 		</select>
+
 		
 		<!-- 一对一 -->
 		<resultMap type="orders" id="OrderAndListResultMap">
@@ -70,6 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</collection>
 		</resultMap>
 		
+		<!-- 多对多 -->
 		<resultMap type="user" id="findUserAndItemList"  >
 				<id column="user_id"  property="id"/>
 				<result  column="username"  property="username"/>
@@ -87,8 +109,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					
 					
 					<!-- 订单明细信息 -->
-						<collection property="orderdetail"  ofType="cn.tf.mybatis.po.Orderdetail">
+						<collection property="orderdetails" ofType="cn.tf.mybatis.po.Orderdetail">
 								<id column="orderdetail_id" property="id"/>
+			
 								<result column="items_num" property="itemsNum"/>
 								<result column="items_id" property="itemsId"/>
 						

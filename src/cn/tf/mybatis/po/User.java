@@ -1,9 +1,10 @@
 package cn.tf.mybatis.po;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User implements Serializable{
 	
 	private int id;
 	private String username;// 用户姓名

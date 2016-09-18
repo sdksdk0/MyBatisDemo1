@@ -21,4 +21,7 @@ public interface OrderMapper {
 	
 	public List<User>  findUserAndItemList();
 	
+	public List<Orders>  findOrderUserLazyLoad();
+	
+	
 }
